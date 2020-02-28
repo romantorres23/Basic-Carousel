@@ -4,7 +4,11 @@ class Slideshow {
         this.allPics = document.querySelectorAll('img');
         this.current = 0;
         this.time = 1000;
+        this.arrowLeft = document.querySelector('.fa-arrow-left');
+        this.arrowRight = document.querySelector('.fa-arrow-right');
         
+
+        this.allPics[this.current].classList.add("active");
 
         ///***Starts the slideshow */
         this.resume();
@@ -22,10 +26,27 @@ class Slideshow {
                 this.resume();
             });
         };
+
+        ///***prev on click of left arrow */
+            this.arrowLeft.addEventListener("click", () =>{
+                this.prev();
+            });
+
+        ///***next on click of right arrow */
+            this.arrowRight.addEventListener("click", () =>{
+                this.next();
+            });
         
     }
 
     next() {
+        let activeEl = this.el.querySelector(".active");
+
+        if (activeEl !== null) {
+            activeEl.classList.remove("active");
+        }
+        
+        this.allPics[this.current].classList.add("active");
         this.current = this.current + 1;
 
         if (this.current < this.allPics.length) {
@@ -56,9 +77,13 @@ class Slideshow {
 
     resume(el) {
         this.slideShow = setInterval(() => {
-            console.log(this.current);
+            //console.log(this.current);
             this.next();
         }, this.time);
+    }
+
+    isActive(el) {
+        return this.allPics.classList.contains("active");
     }
 }
 

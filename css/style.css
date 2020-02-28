@@ -3,6 +3,7 @@ body {
 }
 
 img {
+    height: 768px;
     width: 100%;
 }
 
@@ -14,3 +15,22 @@ body > secton > img.active{
     display: block;
 }
 
+i.fas {
+    font-size: 50pt;
+    color: #fff;
+    padding: 5px;
+    background-color: #000;
+    opacity: .7;
+}
+
+i.fas:hover {
+    background-color: rgb(107, 4, 4);
+}
+
+i.fas.fa-arrow-left {
+    border-radius: 0 8px 8px 0;
+}
+
+i.fas.fa-arrow-right {
+border-radius: 8px 0 0 8px;
+}
