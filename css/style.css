@@ -52,7 +52,6 @@ body > section > ul {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 15px;
     margin: 0;
 }
 
@@ -60,7 +59,7 @@ body > section > ul > li {
     height: 15px;
     width: 15px; 
     flex-direction: row; 
-    margin: 5px;
+    margin: 10px;
     border: 2px solid rgb(107, 4, 4);
     border-radius: 12px;
     cursor: pointer;

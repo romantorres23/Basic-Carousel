@@ -1,12 +1,12 @@
 class Slideshow {
     constructor(el){
         this.el = document.querySelector(el);
-        this.allPics = document.querySelectorAll('img');
-        this.indicators = document.querySelectorAll('li');
-        this.current = 1;
+        this.allPics = this.el.querySelectorAll('img');
+        this.indicators = this.el.querySelectorAll('li');
+        this.current = 0;
         this.time = 1000;
-        this.arrowLeft = document.querySelector('.fa-arrow-left');
-        this.arrowRight = document.querySelector('.fa-arrow-right');
+        this.arrowLeft = this.el.querySelector('.fa-arrow-left');
+        this.arrowRight = this.el.querySelector('.fa-arrow-right');
         
         ///***Initial active image and fill */
         this.allPics[0].classList.add("active");
@@ -16,36 +16,61 @@ class Slideshow {
         this.resume();
 
         ///***pauses the slideshow on mouseenter */
-            this.el.addEventListener("mouseenter", () =>{
-                this.pause();
-            });
+        this.el.addEventListener("mouseenter", () =>{
+            this.pause();
+        });
 
         ///***resumes the slideshow on mouseleave */
-            this.el.addEventListener("mouseleave", () =>{
-                this.resume();
-            });
+        this.el.addEventListener("mouseleave", () =>{
+            this.resume();
+        });
 
         ///***prev on click of left arrow */
-            this.arrowLeft.addEventListener("click", () =>{
-                this.prev();
-            });
+        this.arrowLeft.addEventListener("click", () =>{
+            this.prev();
+        });
 
         ///***next on click of right arrow */
-            this.arrowRight.addEventListener("click", () =>{
-                this.next();
-            });
+        this.arrowRight.addEventListener("click", () =>{
+            this.next();
+        });
 
         ///***goto i on click of indicator*/
-            for (let i = 0; i < this.indicators.length; i++) {
-                this.indicators[i].addEventListener("click", () =>{
-                    this.goto(i);
-                    this.next();
-                });
-            };
+        for (let i = 0; i < this.indicators.length; i++) {
+            this.indicators[i].addEventListener("click", () =>{
+                this.goto(i);
+            });
+        };
 
+        ///***Swipes */
+        
     }
 
     next() {
+        var i = this.current + 1;
+
+        ///***Loops back to one at the last slide */
+        if (i < this.allPics.length) {
+            this.goto(i); 
+        } else { 
+            this.goto(0);
+        }
+    }
+
+    prev() {
+        var i = this.current - 1;
+
+        ///***Loops back to last slide at 0 */
+        if (i < 0) {
+            this.goto(this.allPics.length - 1); 
+        } else { 
+            this.goto(i);
+        }
+    }
+
+    goto(i) {
+        this.current = i;
+
         let activeEl = this.el.querySelector(".active");
         let filledEl = this.el.querySelector(".fill");
 
@@ -58,32 +83,10 @@ class Slideshow {
         ///***Make active classes */
         this.allPics[this.current].classList.add("active");
         this.indicators[this.current].classList.add("fill");
-        this.current = this.current + 1;
-
-        ///***Loops back to one at the last slide */
-        if (this.current < this.allPics.length) {
-            this.goto(this.current); 
-            return
-        }
         
-        this.goto(0);
-    }
-
-    prev() {
-        ///***Loops back to end of slide when prev on 0 */
-        if (this.current === 0) {
-            this.current = this.allPics.length;
-        }
-
-        ///***goes backward one slide */
-        this.current = this.current - 1;
-        this.allPics[this.current];
-    }
-
-    goto(i) {
         //console.log(i);
-        this.current = i;
-        this.allPics[i];
+        
+        // this.allPics[i];
     }
 
     pause() {
