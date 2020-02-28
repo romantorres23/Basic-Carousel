@@ -2,16 +2,19 @@ body {
     margin: 50px;
 }
 
+body>section.pictures {
+    position: relative;
+}
+
 img {
-    height: 768px;
     width: 100%;
 }
 
-body > secton > img{
+body > section > img{
     display: none;
 }
 
-body > secton > img.active{
+body > section > img.active{
     display: block;
 }
 
@@ -21,16 +24,49 @@ i.fas {
     padding: 5px;
     background-color: #000;
     opacity: .7;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 i.fas:hover {
     background-color: rgb(107, 4, 4);
+    cursor: pointer;
 }
 
 i.fas.fa-arrow-left {
     border-radius: 0 8px 8px 0;
+
 }
 
 i.fas.fa-arrow-right {
-border-radius: 8px 0 0 8px;
+    border-radius: 8px 0 0 8px;
+    right: 0;
+
 }
+
+body > section > ul {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15px;
+    margin: 0;
+}
+
+body > section > ul > li {
+    height: 15px;
+    width: 15px; 
+    flex-direction: row; 
+    margin: 5px;
+    border: 2px solid rgb(107, 4, 4);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+body > section > ul > li:hover, li.fill {
+    background-color: rgb(107, 4, 4);
+}
+

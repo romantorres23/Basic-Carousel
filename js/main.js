@@ -2,30 +2,28 @@ class Slideshow {
     constructor(el){
         this.el = document.querySelector(el);
         this.allPics = document.querySelectorAll('img');
-        this.current = 0;
+        this.indicators = document.querySelectorAll('li');
+        this.current = 1;
         this.time = 1000;
         this.arrowLeft = document.querySelector('.fa-arrow-left');
         this.arrowRight = document.querySelector('.fa-arrow-right');
         
-
-        this.allPics[this.current].classList.add("active");
+        ///***Initial active image and fill */
+        this.allPics[0].classList.add("active");
+        this.indicators[0].classList.add("fill");
 
         ///***Starts the slideshow */
         this.resume();
 
         ///***pauses the slideshow on mouseenter */
-        for (let i = 0; i < this.allPics.length; i++) {
-            this.allPics[i].addEventListener("mouseenter", () =>{
+            this.el.addEventListener("mouseenter", () =>{
                 this.pause();
             });
-        };
 
         ///***resumes the slideshow on mouseleave */
-        for (let i = 0; i < this.allPics.length; i++) {
-            this.allPics[i].addEventListener("mouseleave", () =>{
+            this.el.addEventListener("mouseleave", () =>{
                 this.resume();
             });
-        };
 
         ///***prev on click of left arrow */
             this.arrowLeft.addEventListener("click", () =>{
@@ -36,19 +34,33 @@ class Slideshow {
             this.arrowRight.addEventListener("click", () =>{
                 this.next();
             });
-        
+
+        ///***goto i on click of indicator*/
+            for (let i = 0; i < this.indicators.length; i++) {
+                this.indicators[i].addEventListener("click", () =>{
+                    this.goto(i);
+                    this.next();
+                });
+            };
+
     }
 
     next() {
         let activeEl = this.el.querySelector(".active");
+        let filledEl = this.el.querySelector(".fill");
 
-        if (activeEl !== null) {
+        ///**Remove active classes */
+        if (activeEl,filledEl !== null) {
             activeEl.classList.remove("active");
+            filledEl.classList.remove("fill");
         }
-        
+   
+        ///***Make active classes */
         this.allPics[this.current].classList.add("active");
+        this.indicators[this.current].classList.add("fill");
         this.current = this.current + 1;
 
+        ///***Loops back to one at the last slide */
         if (this.current < this.allPics.length) {
             this.goto(this.current); 
             return
@@ -58,32 +70,33 @@ class Slideshow {
     }
 
     prev() {
+        ///***Loops back to end of slide when prev on 0 */
         if (this.current === 0) {
             this.current = this.allPics.length;
         }
 
+        ///***goes backward one slide */
         this.current = this.current - 1;
         this.allPics[this.current];
     }
 
     goto(i) {
+        //console.log(i);
         this.current = i;
         this.allPics[i];
     }
 
     pause() {
+        ///***Pauses slideshow */
         clearInterval(this.slideShow);
     }
 
-    resume(el) {
+    resume() {
+        ///***Starts interval */
         this.slideShow = setInterval(() => {
             //console.log(this.current);
             this.next();
         }, this.time);
-    }
-
-    isActive(el) {
-        return this.allPics.classList.contains("active");
     }
 }
 
