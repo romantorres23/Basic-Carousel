@@ -1,61 +1,65 @@
 class Slideshow {
     constructor(el){
-        // this.el = document.querySelector(el);
-        this.slides = [0, 1, 2, 3, 4, 5];
+        this.el = document.querySelector(el);
+        this.allPics = document.querySelectorAll('img');
         this.current = 0;
-        let time = 1000;
-        // console.log(this.el);
- 
-        setInterval(() => {
-            console.log(this.current);
-            this.next();
-        }, time);
+        this.time = 1000;
+        
+
+        ///***Starts the slideshow */
+        this.resume();
+
+        ///***pauses the slideshow on mouseenter */
+        for (let i = 0; i < this.allPics.length; i++) {
+            this.allPics[i].addEventListener("mouseenter", () =>{
+                this.pause();
+            });
+        };
+
+        ///***resumes the slideshow on mouseleave */
+        for (let i = 0; i < this.allPics.length; i++) {
+            this.allPics[i].addEventListener("mouseleave", () =>{
+                this.resume();
+            });
+        };
+        
     }
 
     next() {
-        // console.log(this.el);
-        if (this.current >= this.slides.length -1) {
-            this.goto(0);
+        this.current = this.current + 1;
+
+        if (this.current < this.allPics.length) {
+            this.goto(this.current); 
             return
         }
-
-        this.goto(++this.current);
+        
+        this.goto(0);
     }
 
     prev() {
-        if (this.current <= 0) {
-            this.current = this.slides.length;
+        if (this.current === 0) {
+            this.current = this.allPics.length;
         }
-        
-        this.slides[--this.current];
+
+        this.current = this.current - 1;
+        this.allPics[this.current];
     }
 
     goto(i) {
         this.current = i;
-        this.slides[i];
+        this.allPics[i];
     }
 
     pause() {
-
+        clearInterval(this.slideShow);
     }
 
-    resume() {
-
+    resume(el) {
+        this.slideShow = setInterval(() => {
+            console.log(this.current);
+            this.next();
+        }, this.time);
     }
 }
 
 let ss = new Slideshow(".pictures");
-
-// let slides = [0, 1, 2, 3, 4, 5];
-// let current = 0;
-// let time = 1000;
-
-// setInterval(() => {
-//     console.log(current);
-//     if (current >= slides.length -1) {
-//         current = -1;
-//     }
-
-//     slides[current++];
-
-// }, time);
