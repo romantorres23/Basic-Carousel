@@ -1,16 +1,19 @@
 class Slideshow {
     constructor(el){
         this.el = document.querySelector(el);
-        this.numOfSlides = this.el.querySelectorAll('img');
+        this.allPics = this.el.querySelectorAll('img');
         this.indicators = this.el.querySelectorAll('li');
         this.current = 0;
         this.time = 1000;
         this.arrowLeft = this.el.querySelector('.fa-arrow-left');
         this.arrowRight = this.el.querySelector('.fa-arrow-right');
-        const that = this;
         
-        ///***Initial fill */
+        ///***Initial active image and fill */
+        this.allPics[0].classList.add("active");
         this.indicators[0].classList.add("fill");
+
+        ///***Starts the slideshow */
+        this.resume();
 
         ///***pauses the slideshow on mouseenter */
         this.el.addEventListener("mouseenter", () =>{
@@ -39,42 +42,25 @@ class Slideshow {
             });
         };
 
-        ///***Swipes */   
-        this.mySwipe = new Swipe(this.el, {
-            startSlide: 0,
-            auto: 1000,
-            draggable: true,
-            autoRestart: true,
-            continuous: true,
-            disableScroll: true,
-            stopPropagation: true,
-            callback: function(index, element) {
-                console.log("swiped");
-                console.log(index);
-                that.current = index;
-                that.setIndicator(that.current);
-            },
-            transitionEnd: function(index, element) {}
-        });
-    }
-
-    setIndicator(index) {
-        let filledEl = this.el.querySelector(".fill");
-
-        ///**Remove active classes */
-        if (filledEl !== null) {
-            filledEl.classList.remove("fill");
-        }
-   
-        ///***Make active classes */
-        this.indicators[index].classList.add("fill");
+        // ///***Swipes */   
+        // window.mySwipe = new Swipe(this.el, {
+        // startSlide: 0,
+        // auto: 0,
+        // draggable: false,
+        // autoRestart: false,
+        // continuous: true,
+        // disableScroll: true,
+        // stopPropagation: true,
+        // callback: function(index, element) {},
+        // transitionEnd: function(index, element) {}
+        // });
     }
 
     next() {
         var i = this.current + 1;
 
         ///***Loops back to one at the last slide */
-        if (i < this.numOfSlides.length) {
+        if (i < this.allPics.length) {
             this.goto(i); 
         } else { 
             this.goto(0);
@@ -86,7 +72,7 @@ class Slideshow {
 
         ///***Loops back to last slide at 0 */
         if (i < 0) {
-            this.goto(this.numOfSlides.length - 1); 
+            this.goto(this.allPics.length - 1); 
         } else { 
             this.goto(i);
         }
@@ -95,22 +81,35 @@ class Slideshow {
     goto(i) {
         this.current = i;
 
-        this.mySwipe.slide(this.current);
+        let activeEl = this.el.querySelector(".active");
+        let filledEl = this.el.querySelector(".fill");
+
+        ///**Remove active classes */
+        if (activeEl,filledEl !== null) {
+            activeEl.classList.remove("active");
+            filledEl.classList.remove("fill");
+        }
+   
+        ///***Make active classes */
+        this.allPics[this.current].classList.add("active");
+        this.indicators[this.current].classList.add("fill");
+        
+        //console.log(i);
+        
+        // this.allPics[i];
     }
 
     pause() {
         ///***Pauses slideshow */
-        //clearInterval(this.slideShow);
-        this.mySwipe.stop();
+        clearInterval(this.slideShow);
     }
 
     resume() {
         ///***Starts interval */
-        // this.slideShow = setInterval(() => {
-        //     //console.log(this.current);
-        //     this.next();
-        // }, this.time);
-        this.mySwipe.restart();
+        this.slideShow = setInterval(() => {
+            //console.log(this.current);
+            this.next();
+        }, this.time);
     }
 }
 
