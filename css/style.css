@@ -2,7 +2,7 @@ body {
     margin: 50px;
 }
 
-body>section.pictures {
+#slider {
     position: relative;
 }
 
@@ -10,11 +10,11 @@ img {
     width: 100%;
 }
 
-body > section > img{
+#slider img{
     display: none;
 }
 
-body > section > img.active{
+#slider img.active{
     display: block;
 }
 
@@ -69,3 +69,18 @@ body > section > ul > li:hover, li.fill {
     background-color: rgb(107, 4, 4);
 }
 
+/* .swipe {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+  }
+  .swipe-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .swipe-wrap > div {
+    float: left;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  } */

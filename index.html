@@ -8,27 +8,30 @@
     <title>Slideshow</title>
 </head>
 <body>
-        <section class="pictures">
-            <img src="images/carnage-venom-spiderman.jpg" alt="spiderman">
-            <img src="images/venom.jpg" alt="venom">
-            <img src="images/carnage.jpg" alt="carnage">
-            <img src="images/anti-venom.jpg" alt="anti-venom">
-            <img src="images/venom2.jpg" alt="venom2">
+    <section id="slider" class="swipe pictures">
+        <div class="swipe-wrap">
+            <div><img src="images/carnage-venom-spiderman.jpg" alt="spiderman"></div>
+            <div><img src="images/venom.jpg" alt="venom"></div>
+            <div><img src="images/carnage.jpg" alt="carnage"></div>
+            <div><img src="images/anti-venom.jpg" alt="anti-venom"></div>
+            <div><img src="images/venom2.jpg" alt="venom2"></div>
+        </div>
 
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-arrow-left"></i>
+        <i class="fas fa-arrow-right"></i>
 
-            <ul class="indicators">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            
-        </section>
+        <ul class="indicators">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        
+    </section>
 
     <!--jquery and js srcs -->
+    <script src="node_modules\swipejs\build\swipe.min.js"></script>
     <script
     src="http://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
